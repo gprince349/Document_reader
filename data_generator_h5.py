@@ -32,7 +32,7 @@ def create_h5_data(images,name_of_data):
 		i = i+1
 
 	with h5py.File("data.h5","a") as hf:
-		hf.create_dataset(name_of_data,data=data)
+		hf.create_dataset(name_of_data,data=data,compression="gzip",compression_opts=9)
 
 
 def make_image_path_list():
@@ -61,17 +61,17 @@ def create_label_data(name_of_data):
 	label[:,:] = label1.reshape(1,len(label1))
 	print(label)
 	with h5py.File("data.h5","a") as hf:
-		hf.create_dataset(name_of_data,data=label)
+		hf.create_dataset(name_of_data,data=label,compression="gzip",compression_opts=9)
 
 
 
 #getting path list
-# train_list,test_list = make_image_path_list()
+#train_list,test_list = make_image_path_list()
 
 #run this three once to create data.h5 files
-# create_h5_data(train_list,"Train_X")
-# create_h5_data(test_list,"Test_X")
-# create_label_data("Train_Y")
+#create_h5_data(train_list,"Train_X")
+#create_h5_data(test_list,"Test_X")
+#create_label_data("Train_Y")
 
 
 #retrieving data array from data.h5
@@ -82,15 +82,14 @@ def load_data_set():
 		Test_X = hf["Test_X"]
 
 		return Train_X[:],Train_Y[:],Test_X[:]
-		# return Train_Y[:]
+		
 
 
-Train_X,Train_Y,Test_X = load_data_set()
-# Train_Y = load_data_set()
+#Train_X,Train_Y,Test_X = load_data_set()
 
-print(Train_X.shape)
-print(Train_Y.shape)
-print(Test_X.shape)
+#print(Train_X.shape)
+#print(Train_Y.shape)
+#print(Test_X.shape)
 
 
 
